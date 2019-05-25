@@ -15,8 +15,6 @@ class AddLinkOnUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->integer('roster_id')->nullable()->after('email');
-            $table->foreign('roster_id')
-                    ->references('id')->on('roster');
 
         });
     }

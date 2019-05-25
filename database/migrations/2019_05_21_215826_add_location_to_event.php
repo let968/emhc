@@ -15,8 +15,6 @@ class AddLocationToEvent extends Migration
     {
         Schema::table('event', function (Blueprint $table) {
             $table->integer('location');
-            $table->foreign('location')
-                    ->references('id')->on('location');
         });
     }
 
