@@ -7,6 +7,16 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+//font-awesome
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+@import '~@fortawesome/fontawesome-free/scss/regular';
+@import '~@fortawesome/fontawesome-free/scss/solid';
+@import '~@fortawesome/fontawesome-free/scss/brands';
+
+//toastr
+@import '~toastr/toastr';
+
+
 .bg-team-primary{
     background-color: $team-primary;
 }
@@ -17,4 +27,16 @@
 
 .bg-team-tertiary{
     background-color: $team-tertiary;
+}
+
+.text-team-primary{
+    color: $team-primary;
+}
+
+.text-team-secondary{
+    color: $team-secondary;
+}
+
+.text-team-tertiary{
+    color: $team-tertiary;
 }
