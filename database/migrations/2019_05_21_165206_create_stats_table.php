@@ -20,8 +20,6 @@ class CreateStatsTable extends Migration
             $table->integer('assists')->default(0);
             $table->integer('blocks')->default(0);
             $table->timestamps();
-            $table->foreign('event_id')
-                    ->references('id')->on('event');
         });
     }
 
