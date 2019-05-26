@@ -27,6 +27,7 @@ class Stats extends Model
                         ->join('event','event.id','=','event_id')
                         ->groupBy('roster.name')
                         ->orderBy(DB::raw('SUM(goals) + SUM(assists)'),'desc')
+                        ->orderBy('roster.name','asc')
                         ->where('event.season', $season->season)
                         ->limit(5)
                         ->get();
