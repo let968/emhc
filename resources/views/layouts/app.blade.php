@@ -1,7 +1,12 @@
 @php
     use Illuminate\Support\Facades\Auth;
+    use App\Stats;
 
     $auth = Auth::id();
+
+    $stat = new Stats;
+    $stats = $stat->pointLeaders();
+
 @endphp
 
 <!DOCTYPE html>
@@ -23,7 +28,7 @@
 </head>
 <body class='overflow-hidden'>
     @section('header')
-        <nav class="navbar navbar-expand-lg navbar-dark bg-team-primary position-relative" style='z-index: 2'>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-team-primary position-fixed w-100" style='z-index: 2'>
             <a class="navbar-brand" href="/">
                 <img src="/images/evil_monkey.svg" width='30' height="30" class='d-inline-block align-top'>
                 EMHC
@@ -55,8 +60,47 @@
         </nav>
     @show
 
-    <div id='app' class='container overflow-auto position-absolute' style='top: 55px;bottom: 0;left: 0;right: 0;'>
-        @yield('content')
+    <div class='row pl-2 pr-2'>
+        <div class='col-md-2 d-none d-sm-block position-relative mt-5' style='top: 55px'>
+            <div class="card shadow-sm">
+                <div class="card-header bg-dark text-light">
+                    Record
+                </div>
+                <div class="card-body p-2 font-weight-bold text-center">
+                    {{ $stats->record->wins }} - {{ $stats->record->losses }}
+                </div>
+            </div>
+            <div class="card shadow-sm mt-2">
+                <div class="card-header bg-dark text-light">
+                    Point Leaders
+                </div>
+                <div class="card-body p-0">
+                    <table class='table table-striped text-center m-0'>
+                        <thead>
+                            <tr>
+                                <th class='p-1'>Name</th>
+                                <th class='p-1'>G</th>
+                                <th class='p-1'>A</th>
+                                <th class='p-1'>P</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($stats->leaders as $leader)
+                                <tr>
+                                    <td class='align-middle text-left'>{{ $leader->name }}</td>
+                                    <td class='align-middle'>{{ $leader->goals }}</td>
+                                    <td class='align-middle'>{{ $leader->assists }}</td>
+                                    <td class='align-middle'>{{ $leader->points }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div id='app' class='col-md-10 col-12 overflow-auto position-relative' style='top: 55px'>
+            @yield('content')
+        </div>
     </div>
 </body>
 </html>
