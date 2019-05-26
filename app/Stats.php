@@ -12,14 +12,15 @@ class Stats extends Model
     public function pointLeaders(){
         $season = DB::table('event')->orderBy('date','desc')->first();
 
-        $wins = DB::table('event')->select(DB::raw('COUNT(id) AS wins'))->where([
-            ['our_score','>','opponent_score'],
-            ['season',$season->season]  
-        ])->first()->wins;
-        $losses = DB::table('event')->select(DB::raw('COUNT(id) AS losses'))->where([
-            ['our_score','<','opponent_score'],
-            ['season',$season->season]  
-        ])->first()->losses;
+        $wins = DB::table('event')
+                        ->whereColumn('our_score','>','opponent_score')
+                        ->where('season',$season->season)
+                        ->count();
+        $losses = DB::table('event')
+                        ->whereColumn('opponent_score','>','our_score')
+                        ->where('season',$season->season)
+                        ->count();
+
 
         $leaders = $this::select(DB::raw('roster.name,SUM(goals) as goals,SUM(assists) as assists,SUM(goals) + SUM(assists) as points'))
                         ->join('roster','roster.id','=','player_id')
