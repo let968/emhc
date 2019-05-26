@@ -18,7 +18,7 @@ class Stats extends Model
         $leaders = $this::select(DB::raw('roster.name,SUM(goals) as goals,SUM(assists) as assists,SUM(goals) + SUM(assists) as points'))
                         ->join('roster','roster.id','=','player_id')
                         ->join('event','event.id','=','event_id')
-                        ->groupBy('player_id')
+                        ->groupBy('roster.name')
                         ->orderBy(DB::raw('SUM(goals)'))
                         ->where('event.season', $season->season)
                         ->limit(5)
