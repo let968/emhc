@@ -60,8 +60,8 @@
         </nav>
     @show
 
-    <div class='row pl-2 pr-2'>
-        <div class='col-md-2 d-none d-sm-block position-relative mt-5' style='top: 55px'>
+    <div class='d-flex' style='padding-top:55px;'>
+        <div class='col-md-2 d-none d-sm-block mt-5'>
             <div class="card shadow-sm">
                 <div class="card-header bg-dark text-light">
                     Record
@@ -98,8 +98,10 @@
                 </div>
             </div>
         </div>
-        <div id='app' class='col-md-10 col-12 overflow-auto position-relative' style='top: 55px'>
-            @yield('content')
+        <div id='app' class='col-md-10 col-12'>
+            <div class='pl-3 pr-3'>
+                @yield('content')
+            </div>
         </div>
     </div>
 </body>
