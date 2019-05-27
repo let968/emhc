@@ -60,8 +60,8 @@
         </nav>
     @show
 
-    <div class='d-flex' style='padding-top:55px;'>
-        <div class='col-md-2 d-none d-sm-block mt-5'>
+    <div class='d-flex flex-wrap' style='padding-top:55px;'>
+        <div class='{{ isset($landingPage) ? 'col-md-2 col-12' : 'col-md-2 d-none d-sm-block' }} mt-3'>
             <div class="card shadow-sm">
                 <div class="card-header bg-dark text-light">
                     Record
@@ -97,9 +97,61 @@
                     </table>
                 </div>
             </div>
+            <div class="card shadow-sm mt-2">
+                <div class="card-header bg-dark text-light">
+                    Next Game
+                </div>
+                <div class="card-body p-2 font-weight-bold text-center">
+                    @if ($stats->games->next)
+                        <div class='d-flex flex-wrap'>
+                            <div class='col-6 mt-2 text-left'>
+                                <i class='fas fa-calendar mr-1'></i>    
+                                <span>{{ date("n/j/Y", strtotime($stats->games->next->date) ) }}</span>
+                            </div>
+                            <div class='col-6 mt-2 text-left'>
+                                <i class='fas fa-clock mr-1'></i>
+                                <span>{{ date("g:i A", strtotime($stats->games->next->start_time)) }}</span>
+                            </div>
+                            <div class='col-12 mt-2 text-left'>
+                                <i class='fas fa-users mr-1'></i>
+                                <span>{{ $stats->games->next->opponent }}</span>
+                            </div>
+                            <div class='col-12 mt-2 text-left'>
+                                <i class='fas fa-location-arrow mr-1'></i>
+                                <span class=''>{{ $stats->games->next->name }}</span>
+                            </div>
+                        </div>
+                    @else
+                        <div class='col-12'>
+                            <div class='alert alert-dark'>No upcoming games</div>
+                        </div>
+                    @endif
+                </div>
+            </div>
+            <div class="card shadow-sm mt-2">
+                <div class="card-header bg-dark text-light">
+                    Previous Game
+                </div>
+                <div class="card-body p-0 font-weight-bold text-center">
+                    @if ($stats->games->prev)
+                        <div class='d-flex p-3 {{ $stats->games->prev->our_score > $stats->games->prev->opponent_score ? 'table-success' : 'table-danger' }}'>
+                            <div class='font-weight-bold'>Evil Monkeys</div>
+                            <div class='ml-auto'>{{ $stats->games->prev->our_score }}</div>
+                        </div>
+                        <div class='d-flex p-3 border-top'>
+                            <div class='font-weight-bold'>{{ $stats->games->prev->opponent }}</div>
+                            <div class='ml-auto'>{{ $stats->games->prev->opponent_score }}</div>
+                        </div>
+                    @else
+                        <div class='col-12'>
+                            <div class='alert alert-dark'>No upcoming games</div>
+                        </div>
+                    @endif
+                </div>
+            </div>
         </div>
         <div id='app' class='col-md-10 col-12'>
-            <div class='pl-3 pr-3'>
+            <div>
                 @yield('content')
             </div>
         </div>

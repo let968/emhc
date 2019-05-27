@@ -21,21 +21,21 @@
         <div class="card-body">
             <form id='event-form' method="post" class='row p-2 needs-validation' novalidate>
                 @csrf
-                <div class='col-6'>
+                <div class='col-md-6 col-sm-12 mt-3'>
                     <label for="date">Date</label>
                     <input type="date" class="form-control" name="date" id="date" required>
                     <div class="invalid-feedback">
                         Valid date is required
                     </div>
                 </div>
-                <div class='col-6'>
+                <div class='col-md-6 col-sm-12 mt-3'>
                     <label for="time">Time</label>
                     <input type="time" class="form-control" name="time" id="time" required>
                     <div class="invalid-feedback">
                         Valid time is required
                     </div>
                 </div>
-                <div class='col-6 mt-3'>
+                <div class='col-md-6 col-sm-12 mt-3'>
                     <label for="opponent-select">
                         Opponent
                         <button type="button" class="btn btn-sm btn-dark text-sm" data-toggle="modal" data-target="#opponentModal">New</button>
@@ -52,7 +52,7 @@
                         Please select or add the opponent the game is against
                     </div>
                 </div>
-                <div class='col-6 mt-3'>
+                <div class='col-md-6 col-sm-12 mt-3'>
                     <label for="location-select">
                         Location
                         <button type="button" class="btn btn-sm btn-dark text-sm invisible" data-toggle="modal" data-target="#locationModal">New</button>
@@ -69,7 +69,7 @@
                         Please select or add the location the game is at
                     </div>
                 </div>
-                <div class='col-6 mt-3'>
+                <div class='col-md-6 col-sm-12 mt-3'>
                     <label for="season">Season</label>
                     <select class="form-control" name="season" id="season" required>
                         <option value=''>-- SELECT --</option>
@@ -79,7 +79,7 @@
                         Please select or add the season the game is in
                     </div>
                 </div>
-                <div class='col-6 mt-3'>
+                <div class='col-md-6 col-sm-12 mt-3'>
                     <label for="type">Type</label>
                     <select class="form-control" name="type" id="type" required>
                         <option value='R'>Regular Season</option>
@@ -105,7 +105,7 @@
                     </div>
                 </div>
                 <div class='col-12 mt-5 text-center'>
-                    <button type="button" class="btn btn-danger mr-5">Back</button>
+                    {{-- <button type="button" class="btn btn-danger mr-5">Back</button> --}}
                     <button class='btn btn-primary' type='submit'>
                         @if ($event)
                             Update Event
