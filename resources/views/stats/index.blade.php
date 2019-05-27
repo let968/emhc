@@ -71,10 +71,10 @@
                             <tr>
                                 <td class='align-middle'>{{ $player->number }}</td>
                                 <td class='align-middle'>{{ $player->name }}</td>
-                                <td class='align-middle'>{{ $player->goals ?: 0 }}</td>
-                                <td class='align-middle'>{{ $player->assists ?: 0 }}</td>
-                                <td class='align-middle'>{{ $player->goals || $player->assists ? $player->goals + $player->assists : 0 }}</td>
-                                <td class='align-middle'>{{ $player->blocks ?: 0 }}</td>
+                                <td class='align-middle'>{{ $player->goals ?: '-' }}</td>
+                                <td class='align-middle'>{{ $player->assists ?: '-' }}</td>
+                                <td class='align-middle'>{{ $player->goals || $player->assists ? $player->goals + $player->assists : '-' }}</td>
+                                <td class='align-middle'>{{ $player->blocks ?: '-' }}</td>
                                 <td class='align-middle'>{{ $player->pims ?: 0 }}:00</td>
                                 @if ($canEdit || ($auth && $auth->admin))
                                     <td class='align-middle'>

@@ -37,9 +37,11 @@
                                 <td class='align-middle'>{{ $user->name }}</td>
                                 <td class='align-middle'>{{ $user->email }}</td>
                                 <td class='align-middle'>
-                                    <h4 class='m-0'>
-                                        <span class='badge bg-team-primary text-team-tertiary pt-1 pb-1 pl-2 pr-2'>{{ $user->number }} - {{ $user->roster_name }}</span>
-                                    </h4>
+                                    @if ($user->roster_id)
+                                        <h4 class='m-0'>
+                                            <span class='badge bg-team-primary text-team-tertiary pt-1 pb-1 pl-2 pr-2'>{{ $user->number }} - {{ $user->roster_name }}</span>
+                                        </h4>
+                                    @endif
                                 </td>
                                 <td class='align-middle'>
                                     @if ($user->admin)
