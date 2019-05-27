@@ -118,7 +118,7 @@
                                     <td class='align-middle text-left'>{{ $leader->name }}</td>
                                     <td class='align-middle'>{{ $leader->goals }}</td>
                                     <td class='align-middle'>{{ $leader->assists }}</td>
-                                    <td class='align-middle'>{{ $leader->points }}</td>
+                                    <td class='align-middle font-weight-bold'>{{ $leader->points }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
