@@ -18,7 +18,13 @@
 
             @foreach ($events as $event)
                 <div class='col-12'>
-                    <div class='card shadow-sm mt-3'>
+                    <div class='card shadow-sm mt-3 {{ 
+                        $event->our_score > $event->opponent_score 
+                        ? 'border-success'
+                        : ($event->our_score === $event->opponent_score 
+                            ? ''
+                            : 'border-danger')
+                    }}'>
                         <div class='card-header d-flex text-black-50 align-items-center'>
                             <div class='mr-4'>
                                 <i class='fas fa-calendar mr-1'></i>    
@@ -31,13 +37,13 @@
                             <div class='ml-auto'>
                                 @if (strtotime(date("m/d/y H:i")) > strtotime($event->date . ' ' . $event->start_time))
                                     <a 
-                                        class="btn btn-sm btn-success"
+                                        class="btn btn-sm btn-primary"
                                         href="/stats/{{ $event->id }}" 
                                         role="button"
                                     >Stats</a>
                                 @else
                                     <a 
-                                        class="btn btn-sm btn-danger"
+                                        class="btn btn-sm btn-secondary"
                                         href="/lineup/{{ $event->id }}" 
                                         role="button"
                                     >Line-up</a>
