@@ -76,7 +76,7 @@
                                 <td class='align-middle'>{{ $player->goals || $player->assists ? $player->goals + $player->assists : 0 }}</td>
                                 <td class='align-middle'>{{ $player->blocks ?: 0 }}</td>
                                 <td class='align-middle'>{{ $player->pims ?: 0 }}:00</td>
-                                @if ($canEdit)
+                                @if ($canEdit || ($auth && $auth->admin))
                                     <td class='align-middle'>
                                     @if($auth && ($auth->admin || $auth->roster_id === $player->player_id))
                                         <button class='btn btn-sm btn-primary' data-toggle="modal" data-target="#statsModal" onclick="editStats('{{ json_encode($player) }}')">
