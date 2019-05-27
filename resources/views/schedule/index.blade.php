@@ -44,7 +44,13 @@
                             </div>
                         </div>
                         <div class='body'>
-                            <div class='d-flex p-3'>
+                            <div class='d-flex p-3 {{ 
+                                    $event->our_score > $event->opponent_score 
+                                    ? 'table-success' 
+                                    : $event->our_score === $event->opponent_score 
+                                        ? ''
+                                        : 'table-danger'
+                                 }}'>
                                 <div class='font-weight-bold'>Evil Monkeys</div>
                                 <div class='ml-auto'>{{ $event->our_score }}</div>
                             </div>
