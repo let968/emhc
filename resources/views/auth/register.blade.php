@@ -1,3 +1,7 @@
+@php
+    abort('404','Page not found');
+@endphp
+
 @extends('layouts.app')
 
 @section('content')

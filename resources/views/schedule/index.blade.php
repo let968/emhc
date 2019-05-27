@@ -1,6 +1,6 @@
 <?php
     use Illuminate\Support\Facades\Auth;
-    $auth = Auth::id();
+    $auth = Auth::user();
     
 ?>
 @extends('layouts.app')
@@ -8,7 +8,7 @@
 @section('title','Schedule')
 
 @section('content')
-    @if ($auth)
+    @if ($auth && $auth->admin)
         <div class='mt-4'>
             <a name="" id="" class="btn btn-primary" href="/schedule/create" role="button">Add Event</a>
         </div>
@@ -72,7 +72,7 @@
                                 <div class=''>{{ $event->name }}</div>
                             </div>
                             <div class='text-black-50 ml-auto'>
-                                @if ($auth)
+                                @if ($auth && $auth->admin)
                                     <a 
                                         class="btn btn-sm btn-dark"
                                         href="/schedule/create/{{ $event->id }}" 

@@ -56,3 +56,19 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
+
+//User managament
+Route::get('/users','UserController@index');
+Route::get('/users/create','UserController@form');
+Route::get('/users/reset-password',function(){
+    return view('auth/passwords/manual-reset');
+})->name('users.reset.password');
+
+Route::post('/users/reset-password','UserController@updatePassword');
+
+Route::post('/users/create','UserController@create');
+Route::put('/users/{id}','UserController@update');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

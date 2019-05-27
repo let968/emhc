@@ -2,7 +2,15 @@
 
     use Illuminate\Support\Facades\Auth;
 
-    $auth = Auth::id();
+    $auth = Auth::user();
+
+    $canEdit = 0;
+    foreach ($stats as $key => $player) {
+        if( $auth && $auth->roster_id === $player->player_id ){
+            $canEdit = 1;
+            break;
+        }
+    }
 @endphp
 
 @extends('layouts.app')
@@ -39,7 +47,7 @@
                             <th>P</th>
                             <th>Blk</th>
                             <th>PIM</th>
-                            @if ($auth)
+                            @if ($auth && ($auth->admin || $canEdit))
                                 <th></th>
                             @endif
                         </tr>
@@ -68,12 +76,15 @@
                                 <td class='align-middle'>{{ $player->goals || $player->assists ? $player->goals + $player->assists : 0 }}</td>
                                 <td class='align-middle'>{{ $player->blocks ?: 0 }}</td>
                                 <td class='align-middle'>{{ $player->pims ?: 0 }}:00</td>
-                                @if($auth)
+                                @if ($canEdit)
                                     <td class='align-middle'>
+                                    @if($auth && ($auth->admin || $auth->roster_id === $player->player_id))
                                         <button class='btn btn-sm btn-primary' data-toggle="modal" data-target="#statsModal" onclick="editStats('{{ json_encode($player) }}')">
                                             <i class="fas fa-pen" aria-hidden="true"></i>
                                         </button>
+                                    @endif
                                     </td>
+                                    
                                 @endif
                             </tr>
                         @endforeach
@@ -86,7 +97,7 @@
                             <th class='bg-dark text-light'>{{ $total->goals + $total->assists }}</th>
                             <th class='bg-dark text-light'>{{ $total->blocks }}</th>
                             <th class='bg-dark text-light'>{{ $total->pims }}:00</th>
-                            @if($auth)
+                            @if($auth && ($auth->admin || $canEdit))
                                 <th class='bg-dark text-light'></th>
                             @endif
                         </tr>

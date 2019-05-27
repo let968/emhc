@@ -1,7 +1,7 @@
 <?php
 
     use Illuminate\Support\Facades\Auth;
-    $auth = Auth::id();
+    $auth = Auth::user();
 
 ?>
 @extends('layouts.app')
@@ -12,7 +12,7 @@
     
 
     <div class='row'>
-        @if ($auth)
+        @if ($auth && $auth->admin)
             <div class='col-12 mt-5'>
                 <a class="btn btn-primary" href="/roster/add" role="button">Add Player</a>
             </div>
@@ -24,7 +24,7 @@
                         <th>#</th>
                         <th>Name</th>
                         <th>Status</th>
-                        @if ($auth)
+                        @if ($auth && $auth->admin)
                             <th></th>
                         @endif
                     </tr>
@@ -53,7 +53,7 @@
                                         '
                                     style='font-size:25px'></i>
                                 </td>
-                                @if ($auth)
+                                @if ($auth && $auth->admin)
                                     <td class='align-middle'>
                                         <a class="btn btn-sm btn-secondary ml-2 mr-2 mt-1 mb-1" href="/roster/add/{{ $player->id }}" role="button">
                                             <i class='fas fa-pen'></i>

@@ -1,6 +1,6 @@
 @php
     use Illuminate\Support\Facades\Auth;
-    $auth = Auth::id();
+    $auth = Auth::user();
 @endphp
 
 @extends('layouts.app')
@@ -73,7 +73,7 @@
                                 <tr>
                                     <td class='table-success d-flex align-items-center'>
                                         <div>{{ $player->name }}</div>
-                                        @if ($auth)
+                                        @if ($auth && ( $auth->admin || $auth->roster_id === $player->player_id ))
                                             <button type="button" class="btn btn-sm btn-primary ml-auto" onclick="choice({{ $player->player_id }},'{{ $player->name }}')">
                                                 <i class="fas fa-bolt" aria-hidden="true"></i>
                                             </button>
@@ -219,7 +219,7 @@
 
     <script>
         function choice($id,$name){
-            toastr.options.positionClass = 'toast-bottom-full-width';
+            toastr.options.positionClass = 'toast-top-full-width';
             toastr.options.preventDuplicates = true;
             toastr.info(`
                 <div class='row'>

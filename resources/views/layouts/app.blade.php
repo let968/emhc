@@ -2,10 +2,15 @@
     use Illuminate\Support\Facades\Auth;
     use App\Stats;
 
-    $auth = Auth::id();
+    $auth = Auth::user();
+    
 
     $stat = new Stats;
     $stats = $stat->pointLeaders();
+
+    if( $auth && $auth->first_login ){
+        redirect()->route('users.reset.password');
+    }
 
 @endphp
 
@@ -16,7 +21,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="shortcut icon" href="/images/evil_monkey.svg" />
+    <link rel="shortcut icon" href="/images/evil_monkey.ico" />
 
     <link rel="stylesheet" href="/css/app.css">
     <script src="/js/app.js"></script>
@@ -50,12 +55,35 @@
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">
-                    @if ($auth)
-                        <a class='nav-link' href='/logout'>Sign Out</a>
-                    @else
-                        <a class='nav-link' href='/login'>Sign In</a>
+                    @if ($auth && $auth->admin)
+                        <li class='nav-item dropdown'>
+                            <a class='nav-link dropdown-toggle' href='#' role='button' data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Admin
+                            </a>
+                            <div class='dropdown-menu' aria-labelledby='navbarDropdown'>
+                                <a class='dropdown-item' href='/users'>Users</a>
+                                <a class='dropdown-item' href='/seasons'>Seasons</a>
+                                <a class='dropdown-item' href='/locations'>Locations</a>
+                            </div>
+                        </li>
                     @endif
-                    </ul>
+                    
+                    @if ($auth)
+                        <li class='nav-item dropdown'>
+                            <a class='nav-link dropdown-toggle' href='#' role='button' data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{ $auth->name }}
+                            </a>
+                            <div class='dropdown-menu' aria-labelledby='navbarDropdown'>
+                                <a class='dropdown-item' href='/logout'>Sign Out</a>
+                                <a class='dropdown-item' href='/profile'>Profile</a>
+                            </div>
+                        </li>
+                    @else
+                        <li class='nav-item'>
+                            <a class='nav-link' href='/login'>Sign In</a>
+                        </li>
+                    @endif
+                </ul>
             </div>
         </nav>
     @show

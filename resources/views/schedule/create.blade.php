@@ -1,9 +1,9 @@
 <?php
 
     use Illuminate\Support\Facades\Auth;
-    $auth = Auth::id();
+    $auth = Auth::user();
 
-    if( !$auth ){
+    if( !$auth || !$auth->admin){
         abort(403, 'Unauthorized action.');
     }
 
