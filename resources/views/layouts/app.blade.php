@@ -28,7 +28,7 @@
 </head>
 <body class='' style='overflow-x:hidden;'>
     @section('header')
-        <nav class="navbar navbar-expand-lg navbar-dark bg-team-primary position-fixed w-100" style='z-index: 2'>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-team-primary position-fixed w-100 shadow" style='z-index: 2'>
             <a class="navbar-brand" href="/">
                 <img src="/images/evil_monkey.svg" width='30' height="30" class='d-inline-block align-top'>
                 EMHC

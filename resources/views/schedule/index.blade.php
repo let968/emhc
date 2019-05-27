@@ -16,8 +16,8 @@
         @if (count($events))
 
             @foreach ($events as $event)
-                <div class='col-12 mt-3'>
-                    <div class='card'>
+                <div class='col-12'>
+                    <div class='card shadow-sm mt-3'>
                         <div class='card-header d-flex text-black-50 align-items-center'>
                             <div class='mr-4'>
                                 <i class='fas fa-calendar mr-1'></i>    
