@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Schedule;
 use App\Stats;
 use App\Lineup;
@@ -24,7 +25,7 @@ class StatsController extends Controller
                         ->join('roster','roster.id','=','lineup.player_id')
                         ->select('stats.*','lineup.player_id','lineup.event_id','roster.name','roster.number')
                         ->where('lineup.event_id',$id)->where('lineup.status','I')
-                        ->orderBy('roster.name','asc')
+                        ->orderBy(DB::raw('(stats.goals + stats.assists)'),'desc')
                         ->get();
 
         return view('stats/index',compact('stats','event'));
