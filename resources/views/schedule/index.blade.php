@@ -1,6 +1,7 @@
 <?php
     use Illuminate\Support\Facades\Auth;
     $auth = Auth::id();
+    
 ?>
 @extends('layouts.app')
 
@@ -46,10 +47,10 @@
                         <div class='body'>
                             <div class='d-flex p-3 {{ 
                                     $event->our_score > $event->opponent_score 
-                                    ? 'table-success' 
-                                    : $event->our_score === $event->opponent_score 
+                                    ? 'table-success'
+                                    : ($event->our_score === $event->opponent_score 
                                         ? ''
-                                        : 'table-danger'
+                                        : 'table-danger')
                                  }}'>
                                 <div class='font-weight-bold'>Evil Monkeys</div>
                                 <div class='ml-auto'>{{ $event->our_score }}</div>
