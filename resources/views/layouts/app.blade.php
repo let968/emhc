@@ -123,7 +123,7 @@
                         </div>
                     @else
                         <div class='col-12'>
-                            <div class='alert alert-dark'>No upcoming games</div>
+                            <div class='alert alert-dark m-0'>No upcoming games</div>
                         </div>
                     @endif
                 </div>
@@ -144,7 +144,7 @@
                         </div>
                     @else
                         <div class='col-12'>
-                            <div class='alert alert-dark'>No upcoming games</div>
+                            <div class='alert alert-dark m-0'>No previous games</div>
                         </div>
                     @endif
                 </div>
