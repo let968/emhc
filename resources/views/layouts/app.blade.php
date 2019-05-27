@@ -51,6 +51,9 @@
                         <a class="nav-link" href="/roster">Roster</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="/stats">Stats</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="/schedule">Schedule</a>
                     </li>
                 </ul>
