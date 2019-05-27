@@ -1,11 +1,16 @@
 <?php
 
     use Illuminate\Support\Facades\Auth;
+    use App\Season;
+
     $auth = Auth::user();
 
     if( !$auth || !$auth->admin){
         abort(403, 'Unauthorized action.');
     }
+
+    $s = new Season();
+    $seasons = $s->getSeasons(); 
 
 ?>
 
@@ -73,7 +78,9 @@
                     <label for="season">Season</label>
                     <select class="form-control" name="season" id="season" required>
                         <option value=''>-- SELECT --</option>
-                        <option value='SPR19'>Spring 2019</option>
+                        @foreach ($seasons as $season)
+                            <option value="{{ $season->id }}">{{ $season->name }}</option>
+                        @endforeach
                     </select>
                     <div class="invalid-feedback">
                         Please select or add the season the game is in

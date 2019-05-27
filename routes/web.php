@@ -72,3 +72,12 @@ Route::put('/users/{id}','UserController@update');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+//Admin pages
+Route::get('/seasons',function(){
+    return view('admin/seasons/index');
+});
+
+Route::post('/seasons/create','SeasonController@create');
+Route::put('/seasons/update/{id}','SeasonController@update');
+Route::delete('/seasons/delete/{id}','SeasonController@delete');
