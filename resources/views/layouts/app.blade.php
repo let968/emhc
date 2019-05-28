@@ -51,7 +51,7 @@
                         <a class="nav-link" href="/roster">Roster</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/stats">Stats</a>
+                        <a class="nav-link" href="/stats/overall">Stats</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/schedule">Schedule</a>
@@ -97,8 +97,9 @@
                 <div class="card-header bg-dark text-light">
                     Record
                 </div>
-                <div class="card-body p-2 font-weight-bold text-center">
-                    {{ $stats->record->wins }} - {{ $stats->record->losses }}
+                <div class="card-body d-flex p-2 font-weight-bold text-center">
+                    <div class='mr-auto'>{{ $stats->season->name }}</div>
+                    <div class='ml-auto'>{{ $stats->record->wins }} - {{ $stats->record->losses }}</div>
                 </div>
             </div>
             <div class="card shadow-sm mt-2">

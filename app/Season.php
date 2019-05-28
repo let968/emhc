@@ -14,4 +14,13 @@ class Season extends Model
 
         return $seasons;
     }
+
+    public function getCurrentSeason(){
+        $season = Season::
+                    leftJoin('event','season.id','=','event.season')
+                    ->select('season.id','season.name')
+                    ->orderBy('date','desc')->first();
+
+        return $season;
+    }
 }

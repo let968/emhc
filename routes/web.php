@@ -32,6 +32,7 @@ Route::delete('/roster/delete/{id}','RosterController@softDelete');
 
 //Schedule routes
 Route::get('/schedule','ScheduleController@index');
+Route::get('/schedule/{season}','ScheduleController@index');
 
 Route::get('/schedule/create','ScheduleController@form');
 Route::get('/schedule/create/{id}','ScheduleController@form');
@@ -46,7 +47,16 @@ Route::put('/lineup/{id}','LineupController@changePlayerStatus');
 
 //Stats routes
 
-Route::get('/stats/{id}','StatsController@index');
+Route::get('/stats/game/{id}','StatsController@index');
+
+Route::get('/stats/overall',function(){
+    $season = false;
+    return view('stats/overall',compact('season'));
+});
+
+Route::get('/stats/overall/{season}',function($season){
+    return view('stats/overall',compact('season'));
+});
 
 Route::put('/stats/{id}','StatsController@changePlayerStats');
 

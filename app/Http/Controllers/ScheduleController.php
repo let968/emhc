@@ -5,17 +5,25 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Schedule;
+use App\Season;
 
 class ScheduleController extends Controller
 {
-    public function index(){
+    public function index($season=false){
+        if(!$season){
+            $s = new Season;
+            $season = $s->getCurrentSeason()->id;
+        }
+
         $events = Schedule::
                             leftJoin('location','location.id','=','event.location')
-                            ->select('event.*','location.name')
+                            ->leftJoin('season','season.id','=','event.season')
+                            ->select('event.*','location.name','season.name as season_name')
+                            ->where('event.season','=',$season)
                             ->orderBy('date','desc')->get();
 
         
-        return view('schedule/index',compact('events'));
+        return view('schedule/index',compact('events','season'));
     }
 
     public function create(Request $request){

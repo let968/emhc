@@ -1,6 +1,23 @@
 <?php
     use Illuminate\Support\Facades\Auth;
+    use Illuminate\Support\Facades\DB;
+    use App\Season;
+
     $auth = Auth::user();
+
+    $s = new Season;
+
+    if( !$season ){
+        $season = $s->getCurrentSeason();
+        $season = empty($season) ? $season->id : '';
+    }
+
+    $all_seasons = DB::table('event')
+                ->leftJoin('season','season.id','=','event.season')
+                ->select('event.season','season.name')
+                ->distinct()
+                ->orderBy('season.name','asc')
+                ->get();
     
 ?>
 @extends('layouts.app')
@@ -8,11 +25,7 @@
 @section('title','Schedule')
 
 @section('content')
-    @if ($auth && $auth->admin)
-        <div class='mt-4'>
-            <a name="" id="" class="btn btn-primary" href="/schedule/create" role="button">Add Event</a>
-        </div>
-    @endif
+
     <style>
         .table-danger{
             background-color: #f7c6c5 !important;
@@ -22,7 +35,31 @@
             background-color: #c7eed8 !important;
         }
     </style>
-    <div class='row mt-3 mb-3'>
+
+    @if ($auth && $auth->admin)
+        <div class='row border-bottom'>
+            <div class='mt-4 col-12'>
+                <a name="" id="" class="btn btn-primary" href="/schedule/create" role="button">Add Event</a>
+            </div>
+            <div class='mt-4 col-lg-4'>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">Season</span>
+                    </div>
+                    <select name="seasonFilter" id="" class="form-control" onchange="window.location.assign(`/schedule/${ this.value }`)">
+                        <option value=""></option>
+                        @foreach ($all_seasons as $s)
+                            <option value="{{ $s->season }}"
+                                {{ $s->season == $season ? 'selected' : '' }}
+                                >{{ $s->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+        </div>
+    @endif
+    
+    <div class='row mb-3'>
         @if (count($events))
 
             @foreach ($events as $event)
@@ -33,6 +70,7 @@
                                     ? ''
                                     : 'danger')
                 @endphp
+                
                 <div class='col-12'>
                     <div class='card shadow-sm mt-3 table-{{ $color }}'>
                         <div class='card-header d-flex text-black-50 align-items-center'>
@@ -48,7 +86,7 @@
                                 @if (strtotime(date("m/d/y H:i")) > strtotime($event->date . ' ' . $event->start_time))
                                     <a 
                                         class="btn btn-sm btn-primary"
-                                        href="/stats/{{ $event->id }}" 
+                                        href="/stats/game/{{ $event->id }}" 
                                         role="button"
                                     >Stats</a>
                                 @else
@@ -70,12 +108,16 @@
                                 <div class='ml-auto'>{{ $event->opponent_score }}</div>
                             </div>
                         </div>
-                        <div class='card-footer d-flex align-items-center table-{{ $color }}'>
-                            <div class='d-flex align-items-center text-black-50'>
-                                <i class='fas fa-location-arrow mr-2'></i>
-                                <div class=''>{{ $event->name }}</div>
+                        <div class='card-footer d-flex align-items-center text-black-50 table-{{ $color }}'>
+                            <div class='mr-4'>
+                                <i class='fas fa-location-arrow mr-1'></i>
+                                <span>{{ $event->name }}</span>
                             </div>
-                            <div class='text-black-50 ml-auto'>
+                            <div>
+                                <i class='fas fa-leaf mr-1'></i>
+                                <span>{{ $event->season_name }}</span>
+                            </div>
+                            <div class='ml-auto'>
                                 @if ($auth && $auth->admin)
                                     <a 
                                         class="btn btn-sm btn-dark"
