@@ -160,7 +160,7 @@
                     @endif
                 </div>
             </div>
-            <div class="card shadow-sm mt-2">
+            <div class="card shadow-sm mt-2 mb-2">
                 <div class="card-header bg-dark text-light">
                     Previous Game
                 </div>
