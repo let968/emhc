@@ -36,6 +36,7 @@ class RosterController extends Controller
 
             $player->name = $request->name;
             $player->number = $request->number;
+            $player->position = 'F';
             $result = $player->save();
         }
 
