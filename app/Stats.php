@@ -76,6 +76,7 @@ class Stats extends Model
                         ->leftJoin('stats','roster.id','=','player_id')
                         ->leftJoin('event','event.id','=','event_id')
                         ->groupBy('roster.name','roster.number')
+                        ->orderBy(DB::raw('SUM(goals) + SUM(assists)'),'desc')
                         ->where('event.season',$season)
                         ->get();
 
