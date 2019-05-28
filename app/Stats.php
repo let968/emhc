@@ -17,11 +17,11 @@ class Stats extends Model
 
         $wins = DB::table('event')
                         ->whereColumn('our_score','>','opponent_score')
-                        ->where('season',$season->season)
+                        ->where('season',$season->id)
                         ->count();
         $losses = DB::table('event')
                         ->whereColumn('opponent_score','>','our_score')
-                        ->where('season',$season->season)
+                        ->where('season',$season->id)
                         ->count();
 
         $nextGame = DB::table('event')
@@ -47,9 +47,10 @@ class Stats extends Model
                         ->groupBy('roster.name')
                         ->orderBy(DB::raw('SUM(goals) + SUM(assists)'),'desc')
                         ->orderBy('roster.name','asc')
-                        ->where('event.season', $season->season)
+                        ->where('event.season', $season->id)
                         ->limit(5)
                         ->get();
+
 
         return (object)[
             'season' => $season,
