@@ -10,7 +10,7 @@
 
     if( !$season ){
         $season = $s->getCurrentSeason();
-        $season = empty($season) ? $season->id : '';
+        $season = !empty($season) ? $season->id : '';
     }
 
     $all_seasons = DB::table('event')
