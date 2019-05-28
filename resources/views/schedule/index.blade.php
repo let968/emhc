@@ -13,18 +13,28 @@
             <a name="" id="" class="btn btn-primary" href="/schedule/create" role="button">Add Event</a>
         </div>
     @endif
+    <style>
+        .table-danger{
+            background-color: #f7c6c5 !important;
+        }
+
+        .table-success{
+            background-color: #c7eed8 !important;
+        }
+    </style>
     <div class='row mt-3 mb-3'>
         @if (count($events))
 
             @foreach ($events as $event)
+                @php
+                    $color = $event->our_score > $event->opponent_score 
+                                ? 'success'
+                                : ($event->our_score === $event->opponent_score 
+                                    ? ''
+                                    : 'danger')
+                @endphp
                 <div class='col-12'>
-                    <div class='card shadow-sm mt-3 {{ 
-                        $event->our_score > $event->opponent_score 
-                        ? 'border-success'
-                        : ($event->our_score === $event->opponent_score 
-                            ? ''
-                            : 'border-danger')
-                    }}'>
+                    <div class='card shadow-sm mt-3 table-{{ $color }}'>
                         <div class='card-header d-flex text-black-50 align-items-center'>
                             <div class='mr-4'>
                                 <i class='fas fa-calendar mr-1'></i>    
@@ -51,22 +61,16 @@
                             </div>
                         </div>
                         <div class='body'>
-                            <div class='d-flex p-3 {{ 
-                                    $event->our_score > $event->opponent_score 
-                                    ? 'table-success'
-                                    : ($event->our_score === $event->opponent_score 
-                                        ? ''
-                                        : 'table-danger')
-                                 }}'>
-                                <div class='font-weight-bold'>Evil Monkeys</div>
+                            <div class='d-flex p-3 {{ $event->our_score > $event->opponent_score ? 'font-weight-bold': '' }}'>
+                                <div class=''>Evil Monkeys</div>
                                 <div class='ml-auto'>{{ $event->our_score }}</div>
                             </div>
-                            <div class='d-flex p-3 border-top'>
-                                <div class='font-weight-bold'>{{ $event->opponent }}</div>
+                            <div class='d-flex p-3 {{ $event->our_score < $event->opponent_score ? 'font-weight-bold': '' }} border-top'>
+                                <div class=''>{{ $event->opponent }}</div>
                                 <div class='ml-auto'>{{ $event->opponent_score }}</div>
                             </div>
                         </div>
-                        <div class='card-footer d-flex align-items-center'>
+                        <div class='card-footer d-flex align-items-center table-{{ $color }}'>
                             <div class='d-flex align-items-center text-black-50'>
                                 <i class='fas fa-location-arrow mr-2'></i>
                                 <div class=''>{{ $event->name }}</div>
