@@ -1,1 +1,1 @@
-Hosted at https://emhc.letourneau.io
+Hosted at https://emhc.site
